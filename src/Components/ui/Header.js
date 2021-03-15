@@ -1,5 +1,11 @@
 import React from "react";
-import { AppBar, Toolbar, useScrollTrigger } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  useScrollTrigger,
+  Typography,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -14,12 +20,35 @@ function ElevationScroll(props) {
   });
 }
 
+const useStyles = makeStyles((theme) => ({
+  toolbarMargin: {
+    ...theme.mixins.toolbar,
+  },
+  title: {
+    fontWeight: 700,
+    // fontStyle: "italic",
+  },
+}));
+
 export default function Header(props) {
+  const classes = useStyles();
+
   return (
-    <ElevationScroll>
-      <AppBar position="fixed">
-        <Toolbar>BayZel.io</Toolbar>
-      </AppBar>
-    </ElevationScroll>
+    <React.Fragment>
+      <ElevationScroll>
+        <AppBar position="fixed" color="primary">
+          <Toolbar>
+            <Typography
+              className={classes.title}
+              variant="h3"
+              color="secondary"
+            >
+              bayzel.io
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <div className={classes.toolbarMargin} />
+    </React.Fragment>
   );
 }
