@@ -3,7 +3,15 @@ import WebFont from "webfontloader";
 
 WebFont.load({
   google: {
-    families: ["Titillium Web:200,300,400,700,900", "sans-serif"],
+    families: [
+      "Titillium Web:200,300,400,700,900",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      "Oswald",
+    ],
   },
 });
 
@@ -35,7 +43,13 @@ export default createMuiTheme({
       '"Helvetica Neue"',
       "Arial",
       "sans-serif",
+      "Oswald",
     ].join(","),
-    fontStyle: "semi-bold",
+    tab: {
+      fontFamily: "Oswald",
+      fontWeight: 500,
+      textTransform: "none",
+      fontSize: "1rem",
+    },
   },
 });
