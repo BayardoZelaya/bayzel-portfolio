@@ -7,6 +7,8 @@ import {
   Typography,
   Tabs,
   Tab,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
@@ -41,14 +43,37 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 10,
     marginLeft: "25px",
   },
+  menu: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1,
+    },
+  },
 }));
 
 export default function Header(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const handleChange = (e, value) => {
     setValue(value);
+  };
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setOpen(true);
+  };
+
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -105,7 +130,10 @@ export default function Header(props) {
                 to="/About"
               />
               <Tab
+                aria-owns={anchorEl ? "simple-menu" : undefined}
+                aria-haspopup={anchorEl ? "true" : undefined}
                 label="Projects"
+                onMouseOver={(event) => handleClick(event)}
                 className={classes.tab}
                 component={Link}
                 to="/Projects"
@@ -123,6 +151,76 @@ export default function Header(props) {
                 to="/Contact"
               />
             </Tabs>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{ onMouseLeave: handleClose }}
+              classes={{ paper: classes.menu }}
+              elevation={0}
+            >
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(2);
+                }}
+                component={Link}
+                to="/Projects"
+                classes={{ root: classes.menuItem }}
+              >
+                {" "}
+                Projects{" "}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(2);
+                }}
+                component={Link}
+                to="/project1"
+                classes={{ root: classes.menuItem }}
+              >
+                {" "}
+                Project1{" "}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(2);
+                }}
+                component={Link}
+                to="/project2"
+                classes={{ root: classes.menuItem }}
+              >
+                {" "}
+                Project2{" "}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(2);
+                }}
+                component={Link}
+                to="/project3"
+                classes={{ root: classes.menuItem }}
+              >
+                {" "}
+                Project3{" "}
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(2);
+                }}
+                component={Link}
+                to="/project4"
+                classes={{ root: classes.menuItem }}
+              >
+                {" "}
+                Project4{" "}
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

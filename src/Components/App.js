@@ -17,6 +17,10 @@ function App() {
             component={() => <div>Technologies</div>}
           />
           <Route exact path="/Contact" component={() => <div>Contact</div>} />
+          <Route exact path="/project1" component={() => <div>Project1</div>} />
+          <Route exact path="/project2" component={() => <div>Project2</div>} />
+          <Route exact path="/project3" component={() => <div>Project3</div>} />
+          <Route exact path="/project4" component={() => <div>Project4</div>} />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
