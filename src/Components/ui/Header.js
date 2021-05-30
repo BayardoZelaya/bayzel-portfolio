@@ -11,8 +11,11 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import {useTheme} from "@material-ui/core/styles"
 
 import { Link } from "react-router-dom";
+
+import useMediaQuery from "@material-ui/core/useMediaQuery"
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -58,6 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"))
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
@@ -90,29 +95,9 @@ export default function Header(props) {
     }
   }, [value]);
 
-  return (
+  const tabs = (
     <React.Fragment>
-      <ElevationScroll>
-        <AppBar position="fixed" color="primary">
-          <Toolbar>
-            <Button
-              component={Link}
-              to="/"
-              disableRipple
-              onClick={() => {
-                setValue(0);
-              }}
-            >
-              <Typography
-                className={classes.title}
-                variant="h3"
-                color="secondary"
-              >
-                bayzel.io
-              </Typography>
-            </Button>
-
-            <Tabs
+      <Tabs
               value={value}
               onChange={handleChange}
               className={classes.tabContainer}
@@ -221,6 +206,31 @@ export default function Header(props) {
                 Project4{" "}
               </MenuItem>
             </Menu>
+    </React.Fragment>
+  )
+
+  return (
+    <React.Fragment>
+      <ElevationScroll>
+        <AppBar position="fixed" color="primary">
+          <Toolbar>
+            <Button
+              component={Link}
+              to="/"
+              disableRipple
+              onClick={() => {
+                setValue(0);
+              }}
+            >
+              <Typography
+                className={classes.title}
+                variant="h3"
+                color="secondary"
+              >
+                bayzel.io
+              </Typography>
+            </Button>
+            {matches ? null : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
